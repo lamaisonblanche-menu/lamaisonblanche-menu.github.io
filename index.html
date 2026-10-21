@@ -124,6 +124,14 @@ footer .script { font-family: var(--f-script); color: var(--bordeaux); font-size
 h3.script { font-family: var(--f-title); font-weight: 500; text-transform: uppercase; letter-spacing: .14em; font-size: 19px; margin: 26px 0 14px; line-height: 1.3; }
 footer .script { font-size: 14px; }
 .goodbye .script { font-size: 17px; line-height: 1.5; padding-left: .3em; }
+/* Asiatique */
+.new-list { gap: 18px; }
+.new-item { display: flex; align-items: center; gap: 14px; }
+.new-item img { width: 84px; height: 84px; object-fit: contain; flex: none; }
+.new-item .txt { flex: 1; min-width: 0; }
+nav.tabs ul { overflow-x: auto; scrollbar-width: none; }
+nav.tabs ul::-webkit-scrollbar { display: none; }
+nav.tabs a { letter-spacing: .06em; font-size: 11.5px; white-space: nowrap; padding-inline: 2px; }
 </style>
 </head><body>
 
@@ -138,6 +146,7 @@ footer .script { font-size: 14px; }
     <li><a href="#brunch">Brunch</a></li>
     <li><a href="#desserts">Desserts</a></li>
     <li><a href="#box">Box</a></li>
+    <li><a href="#asiatique">Asiatique</a></li>
     <li><a href="#boissons">Boissons</a></li>
   </ul>
 </nav>
@@ -245,6 +254,42 @@ footer .script { font-size: 14px; }
         <div style="color:var(--bordeaux);font-size:18px;margin-top:4px">2000</div>
       </div>
     </div>
+  </section>
+
+  <!-- ASIATIQUE -->
+  <section class="menu" id="asiatique">
+    <p class="menu-title">Asiatique</p>
+
+    <h3>À partager</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Nems au poulet ×3</span><span class="dots"></span><span class="price">1700</span></div></li>
+      <li><div class="row"><span class="name">Gyoza au poulet ×5</span><span class="dots"></span><span class="price">2200</span></div></li>
+      <li><div class="row"><span class="name">Soupe de gyoza</span><span class="dots"></span><span class="price">2400</span></div></li>
+      <li><div class="row"><span class="name">Crispy Rice tempura ×5</span><span class="dots"></span><span class="price">2300</span></div></li>
+      <li><div class="row"><span class="name">Crispy Rice avocat ×5</span><span class="dots"></span><span class="price">2400</span></div></li>
+      <li><div class="row"><span class="name">Futomaki ×10</span><span class="dots"></span><span class="price">2500</span></div><p class="desc">Saumon, avocat, cheese, concombre, salade à la sauce mayo yuzu</p></li>
+      <li><div class="row"><span class="name">Maki avocat ×12</span><span class="dots"></span><span class="price">1800</span></div><p class="desc">Avocat, cheese</p></li>
+      <li><div class="row"><span class="name">Maki saumon ×12</span><span class="dots"></span><span class="price">2200</span></div><p class="desc">Saumon</p></li>
+      <li><div class="row"><span class="name">Nigiri saumon ×3</span><span class="dots"></span><span class="price">1800</span></div></li>
+    </ul>
+
+    <h3>Rolls</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">California saumon avocat ×8</span><span class="dots"></span><span class="price">2400</span></div></li>
+      <li><div class="row"><span class="name">Dragon saumon Roll ×8</span><span class="dots"></span><span class="price">2600</span></div><p class="desc">Tempura de crevettes, top saumon</p></li>
+      <li><div class="row"><span class="name">Rainbow Roll ×8</span><span class="dots"></span><span class="price">2800</span></div><p class="desc">Avocat, cheese, crevettes, top poisson du jour &amp; sauce mayo yuzu</p></li>
+      <li><div class="row"><span class="name">Crunchy saumon Roll ×8</span><span class="dots"></span><span class="price">2600</span></div><p class="desc">Saumon frit, avocat, cheese, mayo japonaise épicée &amp; oignons frits</p></li>
+      <li><div class="row"><span class="name">Crunchy poulet Roll ×8</span><span class="dots"></span><span class="price">2400</span></div><p class="desc">Poulet frit, avocat, cheese, mayo japonaise épicée &amp; oignons frits</p></li>
+      <li><div class="row"><span class="name">Flamed Roll ×8</span><span class="dots"></span><span class="price">2800</span></div><p class="desc">Saumon, cheese, sweet soja sauce, top saumon flambé</p></li>
+    </ul>
+
+    <h3>New</h3>
+    <ul class="items new-list">
+      <li class="new-item"><img src="img/roll-creamy-avocado.jpg" alt="" loading="lazy"><div class="txt"><div class="row"><span class="name">Creamy avocado Roll ×8</span><span class="dots"></span><span class="price">2400</span></div><p class="desc">Légumes frits, cheese, top avocat, sweet soja sauce &amp; mayo yuzu</p></div></li>
+      <li class="new-item"><img src="img/roll-veggie.jpg" alt="" loading="lazy"><div class="txt"><div class="row"><span class="name">Veggie Roll ×8</span><span class="dots"></span><span class="price">2500</span></div><p class="desc">Avocat, cheese, feuille de salade à la mayo yuzu</p></div></li>
+      <li class="new-item"><img src="img/maki-crispy-tartare.jpg" alt="" loading="lazy"><div class="txt"><div class="row"><span class="name">Maki crispy au tartare de saumon ×6</span><span class="dots"></span><span class="price">1800</span></div><p class="desc">Sweet soja sauce</p></div></li>
+      <li class="new-item"><img src="img/crunch-tempura.jpg" alt="" loading="lazy"><div class="txt"><div class="row"><span class="name">Crunch tempura ×8</span><span class="dots"></span><span class="price">2800</span></div><p class="desc">Tempura de crevettes, avocat, mayo japonaise épicée</p></div></li>
+    </ul>
   </section>
 
   <!-- BOISSONS -->
