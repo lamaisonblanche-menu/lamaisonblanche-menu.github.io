@@ -1,0 +1,289 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La Maison Blanche – À la carte</title>
+<meta name="description" content="La carte de La Maison Blanche : entrées, plats, pâtes et boissons.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Questrial&family=Great+Vibes&display=swap">
+<style>
+/* Same "carte blanche" look as the brunch page; adds a welcome cover and a goodbye block */
+:root {
+  --paper: #ffffff;
+  --ink: #4a4547;
+  --ink-soft: #7d7679;
+  --bordeaux: #7e1416;
+  --bordeaux-soft: #f6eced;
+  --rule: #e8dfe0;
+  --f-title: "Montserrat", "Century Gothic", "Avenir Next", sans-serif;
+  --f-body: "Questrial", "Century Gothic", "Avenir Next", "Segoe UI", sans-serif;
+  --f-script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.wrap {
+  max-width: 640px; margin: 0 auto;
+  padding-left: max(18px, env(safe-area-inset-left, 0px));
+  padding-right: max(18px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.masthead { text-align: center; padding-block: 40px 22px; }
+.masthead .script { font-family: var(--f-script); color: var(--bordeaux); font-size: 30px; line-height: 1; margin: 0; }
+.masthead h1 {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  letter-spacing: .32em; font-size: clamp(22px, 7vw, 32px); margin: 6px 0 0; padding-left: .32em;
+}
+.masthead .rule { width: 56px; height: 1px; background: var(--bordeaux); margin: 18px auto 0; opacity: .6; }
+
+/* Tabs */
+nav.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+nav.tabs ul { list-style: none; margin: 0 auto; display: flex; justify-content: space-between; gap: 4px; padding-block: 0; }
+nav.tabs a {
+  display: block; padding: 14px 4px 12px; text-decoration: none;
+  font-family: var(--f-title); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 2px solid transparent;
+}
+nav.tabs a[aria-current="true"] { color: var(--bordeaux); border-bottom-color: var(--bordeaux); }
+nav.tabs a:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+
+/* Sections */
+main section.menu { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 52px); padding-block: 34px 8px; }
+main section.menu + section.menu { border-top: 1px solid var(--rule); }
+.menu-title {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  font-size: 13px; letter-spacing: .3em; text-transform: uppercase; text-align: center; margin: 0 0 6px;
+}
+h3 {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  font-size: 19px; letter-spacing: .14em; text-transform: uppercase; margin: 26px 0 14px; text-wrap: balance;
+}
+h3.script { font-family: var(--f-script); text-transform: none; letter-spacing: 0; font-size: 40px; font-weight: 400; margin: 22px 0 8px; line-height: 1.1; }
+
+.framed { border: 1px solid var(--bordeaux); outline: 1px solid var(--bordeaux); outline-offset: 4px; padding: 4px 16px 10px; margin: 26px 5px; }
+.framed h3 { margin-top: 18px; }
+
+/* Item rows */
+ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.row { display: flex; align-items: baseline; gap: 8px; }
+.name { flex: 0 1 auto; min-width: 0; }
+.dots { flex: 1 1 12px; border-bottom: 1px dotted #cbbfc1; transform: translateY(-4px); min-width: 12px; }
+.price { flex: none; font-variant-numeric: tabular-nums; color: var(--ink); letter-spacing: .04em; }
+.desc { margin: 2px 0 0; color: var(--ink-soft); font-size: 14.5px; }
+.desc + .desc { margin-top: 0; }
+.variants { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 15px; }
+.variants .row .name { color: var(--ink-soft); }
+
+.brunch .name { text-transform: uppercase; letter-spacing: .02em; }
+.drinks .name { font-variant: small-caps; text-transform: lowercase; letter-spacing: .14em; font-size: 17px; }
+.drinks .name::first-letter { text-transform: uppercase; }
+.drinks .price { letter-spacing: .18em; }
+.kcal { font-style: italic; }
+.carte .name { text-wrap: balance; }
+.note { font-style: italic; color: var(--ink-soft); font-size: 14.5px; }
+
+/* Welcome cover */
+.cover {
+  min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding-block: 40px; position: relative;
+}
+.cover .frame {
+  border: 1px solid var(--bordeaux); outline: 1px solid var(--bordeaux); outline-offset: 6px;
+  padding: 44px 22px 40px; width: min(100%, 420px);
+}
+.cover .script { font-family: var(--f-script); color: var(--bordeaux); font-size: 40px; line-height: 1; margin: 0; }
+.cover h1 {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  letter-spacing: .3em; font-size: clamp(22px, 7.4vw, 32px); margin: 12px 0 0; padding-left: .3em; line-height: 1.3;
+}
+.cover .rule { width: 56px; height: 1px; background: var(--bordeaux); margin: 22px auto; opacity: .6; }
+.cover .sub { font-family: var(--f-title); font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-soft); margin: 0; padding-left: .3em; }
+.cover .msg { margin: 18px 0 0; color: var(--ink-soft); font-size: 15px; text-wrap: balance; }
+.cover .cta {
+  display: inline-block; margin-top: 30px; padding: 13px 26px; text-decoration: none;
+  background: var(--bordeaux); color: #fff; font-family: var(--f-title); font-size: 12px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase; border-radius: 2px;
+}
+.cover .cta:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 3px; }
+.cover .hint { position: absolute; bottom: 22px; left: 0; right: 0; color: var(--ink-soft); font-size: 22px; opacity: .6; }
+
+/* Goodbye */
+.goodbye { text-align: center; padding-block: 48px 56px; border-top: 1px solid var(--rule); margin-top: 34px; }
+.goodbye .script { font-family: var(--f-script); color: var(--bordeaux); font-size: 40px; line-height: 1.1; margin: 0; }
+.goodbye p { margin: 12px 0 0; color: var(--ink-soft); text-wrap: balance; }
+.goodbye .name { font-family: var(--f-title); color: var(--bordeaux); letter-spacing: .3em; font-size: 14px; margin-top: 26px; padding-left: .3em; }
+.goodbye .rule { width: 56px; height: 1px; background: var(--bordeaux); margin: 22px auto 0; opacity: .6; }
+</style>
+</head><body>
+
+<header class="wrap cover" id="accueil">
+  <div class="frame">
+    <p class="script">Bienvenue chez</p>
+    <h1>LA MAISON BLANCHE</h1>
+    <div class="rule"></div>
+    <p class="sub">À la carte</p>
+    <p class="msg">Installez-vous, prenez votre temps.<br>Toute l’équipe vous souhaite un excellent repas.</p>
+    <a class="cta" href="#entrees">Découvrir la carte</a>
+  </div>
+  <div class="hint" aria-hidden="true">⌄</div>
+</header>
+
+<nav class="tabs" aria-label="Carte">
+  <ul class="wrap">
+    <li><a href="#entrees">Entrées</a></li>
+    <li><a href="#plats">Plats</a></li>
+    <li><a href="#pasta">Pasta</a></li>
+    <li><a href="#boissons">Boissons</a></li>
+  </ul>
+</nav>
+
+<main class="wrap carte">
+
+  <!-- ENTRÉES -->
+  <section class="menu" id="entrees">
+    <p class="menu-title">Entrées</p>
+
+    <h3>Entrées froides</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Carpaccio de bœuf</span><span class="dots"></span><span class="price">2500</span></div></li>
+      <li><div class="row"><span class="name">Burrata sur un carpaccio de tomate, sauce pesto</span><span class="dots"></span><span class="price">2500</span></div></li>
+      <li><div class="row"><span class="name">Salade grecque</span><span class="dots"></span><span class="price">2200</span></div></li>
+      <li><div class="row"><span class="name">Salade de quinoa gourmande aux crustacés</span><span class="dots"></span><span class="price">2800</span></div></li>
+      <li><div class="row"><span class="name">Médaillon de foie gras</span><span class="dots"></span><span class="price">3300</span></div></li>
+    </ul>
+
+    <h3>Entrées chaudes</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Soupe du jour</span><span class="dots"></span><span class="price">1800</span></div></li>
+      <li><div class="row"><span class="name">Velouté aux fruits de mer</span><span class="dots"></span><span class="price">2400</span></div></li>
+      <li><div class="row"><span class="name">Assortiment de bourak × 2</span><span class="dots"></span><span class="price">800</span></div></li>
+      <li><div class="row"><span class="name">Escargot de Bourgogne</span><span class="dots"></span><span class="price">2300</span></div></li>
+      <li><div class="row"><span class="name">Tarte aux crevettes</span><span class="dots"></span><span class="price">2700</span></div></li>
+      <li><div class="row"><span class="name">Noix de Saint-Jacques</span><span class="dots"></span><span class="price">3300</span></div></li>
+      <li><div class="row"><span class="name">Duo de calamars &amp; crevettes sautés à l’ail</span><span class="dots"></span><span class="price">2800</span></div></li>
+      <li><div class="row"><span class="name">Gambas tempura</span><span class="dots"></span><span class="price">3200</span></div></li>
+      <li><div class="row"><span class="name">Moules frites</span><span class="dots"></span><span class="price">2100</span></div></li>
+    </ul>
+  </section>
+
+  <!-- PLATS -->
+  <section class="menu" id="plats">
+    <p class="menu-title">Plats</p>
+
+    <div class="framed">
+      <h3>Viande</h3>
+      <ul class="items">
+        <li><div class="row"><span class="name">Cœur de filet de bœuf, sauce aux morilles</span><span class="dots"></span><span class="price">4500</span></div></li>
+        <li><div class="row"><span class="name">Côte de bœuf poêlée aux herbes</span><span class="dots"></span><span class="price">9000</span></div>
+          <p class="desc note">2 personnes</p></li>
+        <li><div class="row"><span class="name">Méchoui</span><span class="dots"></span><span class="price">5000</span></div></li>
+        <li><div class="row"><span class="name">Souris d’agneau confite au miel &amp; marjolaine</span><span class="dots"></span><span class="price">4500</span></div></li>
+        <li><div class="row"><span class="name">Entrecôte à la sauce poivre vert</span><span class="dots"></span><span class="price">3200</span></div></li>
+      </ul>
+    </div>
+
+    <h3>Poisson</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Saumon à l’orange</span><span class="dots"></span><span class="price">4500</span></div></li>
+      <li><div class="row"><span class="name">Daurade aux crustacés</span><span class="dots"></span><span class="price">3700</span></div></li>
+      <li><div class="row"><span class="name">Loup de mer</span><span class="dots"></span><span class="price">3700</span></div></li>
+    </ul>
+
+    <h3>Gibier</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Ballotine de poulet au saumon &amp; sauce suisse</span><span class="dots"></span><span class="price">3000</span></div></li>
+      <li><div class="row"><span class="name">Magret de canard au cassis</span><span class="dots"></span><span class="price">4500</span></div></li>
+      <li><div class="row"><span class="name">La blanquette exotique de La Maison Blanche</span><span class="dots"></span><span class="price">3000</span></div></li>
+    </ul>
+  </section>
+
+  <!-- PASTA -->
+  <section class="menu" id="pasta">
+    <p class="menu-title">Pasta</p>
+    <h3>Pasta</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Ravioli ricotta &amp; épinards</span><span class="dots"></span><span class="price">2600</span></div></li>
+      <li><div class="row"><span class="name">Rigatoni au saumon</span><span class="dots"></span><span class="price">2800</span></div></li>
+      <li><div class="row"><span class="name">Tagliatelles poulet &amp; champignons</span><span class="dots"></span><span class="price">2400</span></div></li>
+      <li><div class="row"><span class="name">Linguine alla scoglio</span><span class="dots"></span><span class="price">4500</span></div></li>
+      <li><div class="row"><span class="name">Spaghetti moules &amp; pesto</span><span class="dots"></span><span class="price">2800</span></div></li>
+    </ul>
+  </section>
+
+  <!-- BOISSONS -->
+  <section class="menu drinks" id="boissons">
+    <p class="menu-title">Boissons</p>
+
+    <h3 class="script">Classiques</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Eau minérale ou pétillante</span><span class="dots"></span><span class="price">200</span></div></li>
+      <li><div class="row"><span class="name">Soda</span><span class="dots"></span><span class="price">250</span></div></li>
+      <li><div class="row"><span class="name">Café</span><span class="dots"></span><span class="price">400</span></div></li>
+      <li><div class="row"><span class="name">Cappuccino</span><span class="dots"></span><span class="price">500</span></div></li>
+      <li><div class="row"><span class="name">Chocolat chaud</span><span class="dots"></span><span class="price">700</span></div></li>
+      <li><div class="row"><span class="name">Thé, infusion au choix</span><span class="dots"></span><span class="price">400</span></div></li>
+    </ul>
+
+    <h3 class="script">Nos cocktails</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Parfum des femmes</span><span class="dots"></span><span class="price">650</span></div></li>
+      <li><div class="row"><span class="name">Exotic passion</span><span class="dots"></span><span class="price">750</span></div><p class="desc">Fruit de la passion • coco</p></li>
+      <li><div class="row"><span class="name">Exotic mango</span><span class="dots"></span><span class="price">750</span></div><p class="desc">Mangue • pêche</p></li>
+      <li><div class="row"><span class="name">Exotic fruits rouges</span><span class="dots"></span><span class="price">750</span></div><p class="desc">Framboise • myrtille</p></li>
+      <li><div class="row"><span class="name">Mojito classique</span><span class="dots"></span><span class="price">650</span></div></li>
+      <li><div class="row"><span class="name">Mojito fraise</span><span class="dots"></span><span class="price">750</span></div></li>
+      <li><div class="row"><span class="name">Pina colada</span><span class="dots"></span><span class="price">700</span></div></li>
+      <li><div class="row"><span class="name">Ice tea pêche ou fruits des bois</span><span class="dots"></span><span class="price">700</span></div></li>
+      <li><div class="row"><span class="name">Cocktail Maison Blanche</span><span class="dots"></span><span class="price">1000</span></div><p class="desc">Vanille • fruits de la passion • ananas • coco</p></li>
+    </ul>
+
+    <h3 class="script">Jus detox</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Ananas • pomme • menthe</span><span class="dots"></span><span class="price">700</span></div><p class="desc kcal">95 kcal</p></li>
+      <li><div class="row"><span class="name">Orange • carotte • dattes</span><span class="dots"></span><span class="price">800</span></div><p class="desc kcal">110 kcal</p></li>
+      <li><div class="row"><span class="name">Pomme • gingembre • coco</span><span class="dots"></span><span class="price">800</span></div><p class="desc kcal">100 kcal</p></li>
+    </ul>
+
+    <h3 class="script">Jus nature</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Jus d’orange</span><span class="dots"></span><span class="price">500</span></div></li>
+      <li><div class="row"><span class="name">Jus citron</span><span class="dots"></span><span class="price">500</span></div></li>
+      <li><div class="row"><span class="name">Jus de mangue</span><span class="dots"></span><span class="price">900</span></div></li>
+      <li><div class="row"><span class="name">Jus de fraise</span><span class="dots"></span><span class="price">700</span></div></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap goodbye">
+  <p class="script">Merci de votre visite</p>
+  <p>Nous espérons que vous avez passé un agréable moment.<br>À très bientôt !</p>
+  <p class="name">LA MAISON BLANCHE</p>
+  <div class="rule"></div>
+</footer>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.tabs a'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function update() {
+    var y = window.scrollY + 90, current = 0;
+    sections.forEach(function (s, i) { if (s && s.offsetTop <= y) current = i; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) current = sections.length - 1;
+    links.forEach(function (a, i) { a.setAttribute('aria-current', i === current ? 'true' : 'false'); });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+</body></html>
