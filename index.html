@@ -1,0 +1,302 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maison Blanche Menu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Le menu de Maison Blanche : brunch, desserts, box et boissons.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Questrial&family=Great+Vibes&display=swap">
+<style>
+/* Layout: one scrolling paper menu, sticky tab bar, sections stacked; single light "carte blanche" look by choice */
+:root {
+  --paper: #ffffff;
+  --ink: #4a4547;
+  --ink-soft: #7d7679;
+  --bordeaux: #7e1416;
+  --bordeaux-soft: #f6eced;
+  --rule: #e8dfe0;
+  --f-title: "Montserrat", "Century Gothic", "Avenir Next", sans-serif;
+  --f-body: "Questrial", "Century Gothic", "Avenir Next", "Segoe UI", sans-serif;
+  --f-script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.wrap {
+  max-width: 640px; margin: 0 auto;
+  padding-left: max(18px, env(safe-area-inset-left, 0px));
+  padding-right: max(18px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.masthead { text-align: center; padding-block: 40px 22px; }
+.masthead .script { font-family: var(--f-script); color: var(--bordeaux); font-size: 30px; line-height: 1; margin: 0; }
+.masthead h1 {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  letter-spacing: .32em; font-size: clamp(22px, 7vw, 32px); margin: 6px 0 0; padding-left: .32em;
+}
+.masthead .rule { width: 56px; height: 1px; background: var(--bordeaux); margin: 18px auto 0; opacity: .6; }
+
+/* Tabs */
+nav.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+nav.tabs ul { list-style: none; margin: 0 auto; display: flex; justify-content: space-between; gap: 4px; padding-block: 0; }
+nav.tabs a {
+  display: block; padding: 14px 4px 12px; text-decoration: none;
+  font-family: var(--f-title); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 2px solid transparent;
+}
+nav.tabs a[aria-current="true"] { color: var(--bordeaux); border-bottom-color: var(--bordeaux); }
+nav.tabs a:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+
+/* Sections */
+main section.menu { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 52px); padding-block: 34px 8px; }
+main section.menu + section.menu { border-top: 1px solid var(--rule); }
+.menu-title {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  font-size: 13px; letter-spacing: .3em; text-transform: uppercase; text-align: center; margin: 0 0 6px;
+}
+h3 {
+  font-family: var(--f-title); font-weight: 500; color: var(--bordeaux);
+  font-size: 19px; letter-spacing: .14em; text-transform: uppercase; margin: 26px 0 14px; text-wrap: balance;
+}
+h3.script { font-family: var(--f-script); text-transform: none; letter-spacing: 0; font-size: 40px; font-weight: 400; margin: 22px 0 8px; line-height: 1.1; }
+
+.framed { border: 1px solid var(--bordeaux); outline: 1px solid var(--bordeaux); outline-offset: 4px; padding: 4px 16px 10px; margin: 26px 5px; }
+.framed h3 { margin-top: 18px; }
+
+/* Item rows */
+ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.row { display: flex; align-items: baseline; gap: 8px; }
+.name { flex: 0 1 auto; min-width: 0; }
+.dots { flex: 1 1 12px; border-bottom: 1px dotted #cbbfc1; transform: translateY(-4px); min-width: 12px; }
+.price { flex: none; font-variant-numeric: tabular-nums; color: var(--ink); letter-spacing: .04em; }
+.desc { margin: 2px 0 0; color: var(--ink-soft); font-size: 14.5px; }
+.desc + .desc { margin-top: 0; }
+.variants { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 15px; }
+.variants .row .name { color: var(--ink-soft); }
+
+.brunch .name { text-transform: uppercase; letter-spacing: .02em; }
+.drinks .name { font-variant: small-caps; text-transform: lowercase; letter-spacing: .14em; font-size: 17px; }
+.drinks .name::first-letter { text-transform: uppercase; }
+.drinks .price { letter-spacing: .18em; }
+.kcal { font-style: italic; }
+
+/* Photo grid */
+.grid { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 16px; }
+@media (min-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.card { display: grid; grid-template-rows: auto 1fr; gap: 8px; text-align: center; }
+.card img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; max-width: 100%; display: block; }
+.card .t { font-size: 15px; line-height: 1.3; text-wrap: balance; }
+.card .d { display: block; color: var(--ink-soft); font-size: 13px; margin-top: 2px; }
+.card .p { display: block; margin-top: 4px; font-variant-numeric: tabular-nums; color: var(--bordeaux); letter-spacing: .06em; }
+
+/* Box page */
+.box { text-align: center; }
+.box h3 { margin-top: 30px; text-transform: none; letter-spacing: .02em; font-size: 26px; }
+.box .combo { display: grid; gap: 4px; margin-bottom: 26px; }
+.box .combo .n { font-size: 19px; }
+.box .combo .c { font-style: italic; color: var(--ink-soft); font-size: 15px; text-wrap: balance; }
+.box .combo .p { color: var(--bordeaux); font-size: 18px; font-variant-numeric: tabular-nums; }
+.box ul.items { text-align: left; max-width: 360px; margin: 0 auto; }
+.box .mochi { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 10px; }
+.box .mochi img { width: 74px; height: auto; }
+.box .mochi .txt { text-align: left; }
+
+.smoothies .card img { aspect-ratio: 3 / 4; }
+
+footer { text-align: center; color: var(--ink-soft); font-size: 13px; padding-block: 36px 44px; border-top: 1px solid var(--rule); margin-top: 30px; }
+footer .script { font-family: var(--f-script); color: var(--bordeaux); font-size: 26px; display: block; margin-bottom: 4px; }
+</style>
+</head><body>
+
+<header class="wrap masthead">
+  <p class="script">Bienvenue chez</p>
+  <h1>MAISON BLANCHE</h1>
+  <div class="rule"></div>
+</header>
+
+<nav class="tabs" aria-label="Menus">
+  <ul class="wrap">
+    <li><a href="#brunch">Brunch</a></li>
+    <li><a href="#desserts">Desserts</a></li>
+    <li><a href="#box">Box</a></li>
+    <li><a href="#boissons">Boissons</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <!-- BRUNCH -->
+  <section class="menu brunch" id="brunch">
+    <p class="menu-title">Brunch</p>
+
+    <h3>Pour bien commencer la journée</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Œuf à la turque</span><span class="dots"></span><span class="price">1500</span></div></li>
+      <li><div class="row"><span class="name">Œuf Benedict</span><span class="dots"></span><span class="price">2000</span></div>
+        <p class="desc">Frites allumettes en accompagnement</p></li>
+    </ul>
+
+    <div class="framed">
+      <h3>Classiques du brunch</h3>
+      <ul class="items">
+        <li><div class="row"><span class="name">Toast avocat saumon</span><span class="dots"></span><span class="price">2600</span></div></li>
+        <li><div class="row"><span class="name">Club sandwich saumon fumé</span><span class="dots"></span><span class="price">2700</span></div>
+          <p class="desc">Frites allumettes en accompagnement</p></li>
+        <li><div class="row"><span class="name">Club sandwich poulet fumé</span><span class="dots"></span><span class="price">2200</span></div>
+          <p class="desc">Frites allumettes en accompagnement</p></li>
+        <li><div class="row"><span class="name">Croissant croque-monsieur</span><span class="dots"></span><span class="price">2000</span></div>
+          <p class="desc">Poulet fumé artisanal, cheese</p></li>
+        <li><div class="row"><span class="name">Long toast tunacado</span><span class="dots"></span><span class="price">2500</span></div>
+          <p class="desc">Crémeux de thon &amp; avocat</p>
+          <p class="desc">Carottes frites en accompagnement</p></li>
+      </ul>
+    </div>
+
+    <h3>Autres envies</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Salade César</span><span class="dots"></span><span class="price">1600</span></div></li>
+      <li><div class="row"><span class="name">Crêpe salée poulet, épinard</span><span class="dots"></span><span class="price">1500</span></div></li>
+      <li><div class="row"><span class="name">Sandwich La Maison Blanche</span><span class="dots"></span><span class="price">2300</span></div>
+        <p class="desc">Émincé de bœuf, oignons caramélisés, champignons</p>
+        <p class="desc">Frites allumettes en accompagnement</p></li>
+      <li><div class="row"><span class="name">Sandwich salade César</span><span class="dots"></span><span class="price">1700</span></div>
+        <p class="desc">Poulet crispy &amp; sauce César</p></li>
+      <li><div class="row"><span class="name">Le Burger</span></div>
+        <ul class="variants">
+          <li class="row"><span class="name">Bœuf</span><span class="dots"></span><span class="price">2000</span></li>
+          <li class="row"><span class="name">Poulet crispy</span><span class="dots"></span><span class="price">1800</span></li>
+        </ul>
+        <p class="desc">Sur crème fromagère aux champignons</p>
+        <p class="desc">Frites allumettes en accompagnement</p></li>
+    </ul>
+  </section>
+
+  <!-- DESSERTS -->
+  <section class="menu" id="desserts">
+    <p class="menu-title">Desserts</p>
+    <ul class="grid">
+      <li class="card"><img src="img/cake-fondant.jpg" alt="" loading="lazy"><div class="t">Cake fondant au caramel &amp; crème vanille<span class="p">1500</span></div></li>
+      <li class="card"><img src="img/hot-cookie.jpg" alt="" loading="lazy"><div class="t">Hot cookie<span class="p">1600</span></div></li>
+      <li class="card"><img src="img/brioche-tiramisu.jpg" alt="" loading="lazy"><div class="t">Brioche perdue Tiramisu<span class="p">1500</span></div></li>
+      <li class="card"><img src="img/brioche-caramel.jpg" alt="" loading="lazy"><div class="t">Brioche perdue caramel beurre salé<span class="p">2000</span></div></li>
+      <li class="card"><img src="img/ny-roll-citron.jpg" alt="" loading="lazy"><div class="t">New York roll meringuée de citron<span class="p">1000</span></div></li>
+      <li class="card"><img src="img/ny-roll-pistache.jpg" alt="" loading="lazy"><div class="t">New York roll pistache<span class="p">1200</span></div></li>
+      <li class="card"><img src="img/crepe-suzette.jpg" alt="" loading="lazy"><div class="t">Crêpe Suzette &amp; boule de glace vanille<span class="p">1600</span></div></li>
+      <li class="card"><img src="img/matilda-cake.jpg" alt="" loading="lazy"><div class="t">Matilda cake<span class="p">1000</span></div></li>
+      <li class="card"><img src="img/pancake.jpg" alt="" loading="lazy"><div class="t">Pancake beurre &amp; miel<span class="p">1000</span></div></li>
+      <li class="card"><img src="img/gaufre.jpg" alt="" loading="lazy"><div class="t">Gaufre Nutella ou Pistache<span class="p">1500</span></div></li>
+      <li class="card"><img src="img/crepe-nutella.jpg" alt="" loading="lazy"><div class="t">Crêpe Nutella ou Pistache<span class="p">1500</span></div></li>
+      <li class="card"><img src="img/tiramisu.jpg" alt="" loading="lazy"><div class="t">Tiramisu<span class="p">1000</span></div></li>
+      <li class="card"><img src="img/meringue-lemon.jpg" alt="" loading="lazy"><div class="t">Meringue Lemon cake<span class="p">1000</span></div></li>
+      <li class="card"><img src="img/granola-bowl.jpg" alt="" loading="lazy"><div class="t">Granola bowl<span class="d">Crumbles pommes &amp; beurre de cacahuète</span><span class="p">1800</span></div></li>
+    </ul>
+  </section>
+
+  <!-- BOX -->
+  <section class="menu box" id="box">
+    <p class="menu-title">Box</p>
+
+    <h3>Box</h3>
+    <div class="combo">
+      <span class="n">Duo signature × 24</span>
+      <span class="c">4 california, 4 crunchy, 6 maki, 5 dragon saumon, 5 futomaki</span>
+      <span class="p">5400</span>
+    </div>
+    <div class="combo">
+      <span class="n">Party box × 54</span>
+      <span class="c">8 california, 8 crunchy, 6 maki crispy, 10 futomaki, 6 maki avocat, 8 choix du chef, 8 creamy avocat</span>
+      <span class="p">14 200</span>
+    </div>
+
+    <h3>Main courses</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Poke bowl</span><span class="dots"></span><span class="price">3200</span></div></li>
+      <li><div class="row"><span class="name">Wok au poulet</span><span class="dots"></span><span class="price">2400</span></div></li>
+      <li><div class="row"><span class="name">Ramens Gyoza</span><span class="dots"></span><span class="price">2500</span></div></li>
+      <li><div class="row"><span class="name">Ramens aux crevettes</span><span class="dots"></span><span class="price">3200</span></div></li>
+      <li><div class="row"><span class="name">Taco crispy</span><span class="dots"></span><span class="price">3100</span></div></li>
+    </ul>
+
+    <h3>Desserts</h3>
+    <div class="mochi">
+      <img src="img/mochis.jpg" alt="" loading="lazy">
+      <div class="txt">
+        <div class="n" style="font-size:18px">Mochis glacés × 2</div>
+        <div class="desc"><em>pistache, framboise, mangue</em></div>
+        <div style="color:var(--bordeaux);font-size:18px;margin-top:4px">2000</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOISSONS -->
+  <section class="menu drinks" id="boissons">
+    <p class="menu-title">Boissons</p>
+
+    <h3 class="script">Nos cocktails</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Parfum des femmes</span><span class="dots"></span><span class="price">650</span></div></li>
+      <li><div class="row"><span class="name">Exotic passion</span><span class="dots"></span><span class="price">750</span></div><p class="desc">Fruit de la passion • coco</p></li>
+      <li><div class="row"><span class="name">Exotic mango</span><span class="dots"></span><span class="price">750</span></div><p class="desc">Mangue • pêche</p></li>
+      <li><div class="row"><span class="name">Exotic fruits rouges</span><span class="dots"></span><span class="price">750</span></div><p class="desc">Framboise • myrtille</p></li>
+      <li><div class="row"><span class="name">Mojito classique</span><span class="dots"></span><span class="price">650</span></div></li>
+      <li><div class="row"><span class="name">Mojito fraise</span><span class="dots"></span><span class="price">750</span></div></li>
+      <li><div class="row"><span class="name">Pina colada</span><span class="dots"></span><span class="price">700</span></div></li>
+      <li><div class="row"><span class="name">Ice tea pêche ou fruits des bois</span><span class="dots"></span><span class="price">700</span></div></li>
+      <li><div class="row"><span class="name">Cocktail Maison Blanche</span><span class="dots"></span><span class="price">1000</span></div><p class="desc">Vanille • fruits de la passion • ananas • coco</p></li>
+    </ul>
+
+    <h3 class="script">Jus detox</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Ananas • pomme • menthe</span><span class="dots"></span><span class="price">700</span></div><p class="desc kcal">95 kcal</p></li>
+      <li><div class="row"><span class="name">Orange • carotte • dattes</span><span class="dots"></span><span class="price">800</span></div><p class="desc kcal">110 kcal</p></li>
+      <li><div class="row"><span class="name">Pomme • gingembre • coco</span><span class="dots"></span><span class="price">800</span></div><p class="desc kcal">100 kcal</p></li>
+    </ul>
+
+    <h3 class="script">Jus nature</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Jus d’orange</span><span class="dots"></span><span class="price">500</span></div></li>
+      <li><div class="row"><span class="name">Jus citron</span><span class="dots"></span><span class="price">500</span></div></li>
+      <li><div class="row"><span class="name">Jus de mangue</span><span class="dots"></span><span class="price">900</span></div></li>
+      <li><div class="row"><span class="name">Jus de fraise</span><span class="dots"></span><span class="price">700</span></div></li>
+    </ul>
+
+    <h3 class="script">New</h3>
+    <ul class="grid smoothies">
+      <li class="card"><img src="img/smoothie-pistachio.jpg" alt="" loading="lazy"><div class="t">Smoothie pistachio kunafa<span class="p">1100</span></div></li>
+      <li class="card"><img src="img/smoothie-peanut.jpg" alt="" loading="lazy"><div class="t">Smoothie peanuts butter<span class="p">1100</span></div></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span class="script">Maison Blanche</span>
+  Bon appétit
+</footer>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.tabs a'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function update() {
+    var y = window.scrollY + 90, current = 0;
+    sections.forEach(function (s, i) { if (s && s.offsetTop <= y) current = i; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) current = sections.length - 1;
+    links.forEach(function (a, i) { a.setAttribute('aria-current', i === current ? 'true' : 'false'); });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+</body></html>
