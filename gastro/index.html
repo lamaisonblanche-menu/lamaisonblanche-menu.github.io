@@ -93,6 +93,16 @@ ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .carte .name { text-wrap: balance; }
 .note { font-style: italic; color: var(--ink-soft); font-size: 14.5px; }
 
+/* Photo grid */
+.grid { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 16px; }
+@media (min-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.card { display: grid; grid-template-rows: auto 1fr; gap: 8px; text-align: center; }
+.card img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; max-width: 100%; display: block; }
+.card .t { font-size: 15px; line-height: 1.3; text-wrap: balance; }
+.card .d { display: block; color: var(--ink-soft); font-size: 13px; margin-top: 2px; }
+.card .p { display: block; margin-top: 4px; font-variant-numeric: tabular-nums; color: var(--bordeaux); letter-spacing: .06em; }
+.smoothies .card img { aspect-ratio: 3 / 4; }
+
 /* Box page */
 .box { text-align: center; }
 .box h3 { margin-top: 30px; text-transform: none; letter-spacing: .02em; font-size: 26px; }
@@ -350,6 +360,16 @@ nav.tabs a { letter-spacing: .06em; font-size: 11.5px; white-space: nowrap; padd
       <li><div class="row"><span class="name">Thé, infusion au choix</span><span class="dots"></span><span class="price">400</span></div></li>
     </ul>
 
+    <h3 class="script">Iced or hot</h3>
+    <ul class="items">
+      <li><div class="row"><span class="name">Latte vanille</span><span class="dots"></span><span class="price">750</span></div></li>
+      <li><div class="row"><span class="name">Latte caramel beurre salé</span><span class="dots"></span><span class="price">750</span></div></li>
+      <li><div class="row"><span class="name">Matcha latte vanille</span><span class="dots"></span><span class="price">900</span></div></li>
+      <li><div class="row"><span class="name">Matcha latte fraise</span><span class="dots"></span><span class="price">900</span></div></li>
+      <li><div class="row"><span class="name">Matcha latte pistache</span><span class="dots"></span><span class="price">1000</span></div></li>
+      <li><div class="row"><span class="name">Macchiato nature ou vanille</span><span class="dots"></span><span class="price">500</span></div></li>
+    </ul>
+
     <h3 class="script">Nos cocktails</h3>
     <ul class="items">
       <li><div class="row"><span class="name">Parfum des femmes</span><span class="dots"></span><span class="price">650</span></div></li>
@@ -376,6 +396,11 @@ nav.tabs a { letter-spacing: .06em; font-size: 11.5px; white-space: nowrap; padd
       <li><div class="row"><span class="name">Jus citron</span><span class="dots"></span><span class="price">500</span></div></li>
       <li><div class="row"><span class="name">Jus de mangue</span><span class="dots"></span><span class="price">900</span></div></li>
       <li><div class="row"><span class="name">Jus de fraise</span><span class="dots"></span><span class="price">700</span></div></li>
+    </ul>
+    <h3 class="script">New</h3>
+    <ul class="grid smoothies">
+      <li class="card"><img src="../img/latte-tiramisu.jpg" alt="" loading="lazy"><div class="t">Tiramisu latte<span class="p">1000</span></div></li>
+      <li class="card"><img src="../img/latte-matcha-tiramisu.jpg" alt="" loading="lazy"><div class="t">Matcha tiramisu latte<span class="p">1100</span></div></li>
     </ul>
   </section>
 </main>
