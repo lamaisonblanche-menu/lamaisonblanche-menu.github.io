@@ -366,10 +366,11 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
         </form>
 
         <div class="confirm" id="ok" hidden tabindex="-1">
-          <p class="label">Dernière étape</p>
-          <h3>Envoyez votre demande sur WhatsApp</h3>
-          <p>Votre demande est prête. Appuyez sur le bouton ci-dessous pour l’envoyer à notre équipe sur WhatsApp. Nous vous rappelons ensuite pour confirmer votre table.</p>
+          <p class="label" id="ok-label">Demande envoyée</p>
+          <h3 id="ok-title">Merci, votre demande est bien reçue</h3>
+          <p id="ok-text">Notre équipe vous appelle pour confirmer votre table.</p>
           <dl class="recap" id="recap"></dl>
+          <p id="ok-wa" hidden>Pour aller plus vite, vous pouvez aussi l’envoyer sur WhatsApp.</p>
           <div class="actions">
             <a class="btn btn-solid" id="wa" href="https://wa.me/213541559672" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
             <button class="btn btn-line" type="button" id="again">Nouvelle demande</button>
@@ -538,6 +539,8 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
   });
   slots();
 
+  send.textContent = CONFIG.endpoint ? "Envoyer ma demande" : "Continuer";
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     err.hidden = true;
@@ -564,33 +567,33 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
       (data.occasion ? "\nOccasion : " + data.occasion : "") + (data.remarque ? "\nRemarque : " + data.remarque : "");
     var waUrl = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
 
-    function done() {
+    /* sent = true : la demande est partie par e-mail ; false : le client doit l'envoyer sur WhatsApp */
+    function done(sent) {
       var recap = document.getElementById("recap"); recap.innerHTML = "";
       rows.forEach(function (r) { recap.appendChild(el("dt", null, r[0])); recap.appendChild(el("dd", null, r[1])); });
       document.getElementById("wa").href = waUrl;
+      document.getElementById("ok-label").textContent = sent ? "Demande envoyée" : "Dernière étape";
+      document.getElementById("ok-title").textContent = sent ? "Merci, votre demande est bien reçue" : "Envoyez votre demande sur WhatsApp";
+      document.getElementById("ok-text").textContent = sent
+        ? "Notre équipe vous appelle pour confirmer votre table. Votre réservation n’est valable qu’après cette confirmation."
+        : "Votre demande est prête. Appuyez sur le bouton ci-dessous pour l’envoyer à notre équipe sur WhatsApp. Nous vous rappelons ensuite pour confirmer votre table.";
+      document.getElementById("ok-wa").hidden = !sent;
       form.hidden = true; ok.hidden = false; ok.focus();
+      send.disabled = false; send.textContent = CONFIG.endpoint ? "Envoyer ma demande" : "Continuer";
     }
 
-    /* Aperçu sans service d'envoi : on affiche directement la confirmation */
-    if (!CONFIG.endpoint) { done(); return; }
+    if (!CONFIG.endpoint) { done(false); return; }
 
-    /* Envoi classique du formulaire vers FormSubmit, qui transmet la demande par e-mail puis renvoie vers merci.html */
+    /* Envoi vers le script Google du restaurant : ajout au tableau des réservations + e-mail */
     send.disabled = true; send.textContent = "Envoi en cours…";
-    try { sessionStorage.setItem("resa", JSON.stringify({ rows: rows, wa: waUrl })); } catch (x) {}
-    var fields = {
-      _subject: "Nouvelle réservation : " + dLabel + " à " + heureTxt + ", " + data.personnes + " pers., " + data.espace,
-      _template: "table",
-      _captcha: "false",
-      _next: new URL("merci.html", location.href).href,
-      "Espace": data.espace, "Date": dLabel, "Heure": heureTxt, "Personnes": data.personnes,
-      "Nom": data.nom, "Téléphone": data.telephone, "E-mail": data.email || "-", "Occasion": data.occasion || "-", "Remarque": data.remarque || "-"
+    var payload = {
+      espace: data.espace, dateLabel: dLabel, date: data.date, heure: heureTxt, personnes: data.personnes,
+      nom: data.nom, telephone: data.telephone, email: data.email, occasion: data.occasion, remarque: data.remarque
     };
-    if (data.email) fields._replyto = data.email;
-    var out = document.createElement("form");
-    out.method = "POST"; out.action = CONFIG.endpoint; out.acceptCharset = "UTF-8"; out.hidden = true;
-    Object.keys(fields).forEach(function (k) { var inp = document.createElement("input"); inp.type = "hidden"; inp.name = k; inp.value = fields[k]; out.appendChild(inp); });
-    document.body.appendChild(out);
-    out.submit();
+    var timer = setTimeout(function () { done(false); }, 15000);
+    fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+      .then(function () { clearTimeout(timer); done(true); })
+      .catch(function () { clearTimeout(timer); done(false); });
   });
 
   document.getElementById("again").addEventListener("click", function () { form.reset(); dateIn.value = iso(new Date()); persIn.value = "2"; groupe.hidden = true; send.disabled = false; slots(); ok.hidden = true; form.hidden = false; });
