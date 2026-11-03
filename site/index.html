@@ -323,10 +323,10 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
         <div class="head" style="margin-bottom:0">
           <p class="label">Réservation</p>
           <h2>Réserver une table</h2>
-          <p class="sub">Préparez votre demande en une minute et envoyez-la sur WhatsApp. Notre équipe vous rappelle pour la confirmer.</p>
+          <p class="sub">Envoyez votre demande en une minute. Notre équipe vous rappelle pour la confirmer.</p>
         </div>
         <ol class="steps">
-          <li><span>1</span><p>Vous choisissez l’espace, la date et l’heure, puis vous envoyez la demande sur WhatsApp.</p></li>
+          <li><span>1</span><p>Vous choisissez l’espace, la date et l’heure, puis vous envoyez votre demande.</p></li>
           <li><span>2</span><p>Notre équipe vous appelle pour confirmer votre table.</p></li>
           <li><span>3</span><p>Votre table vous attend.</p></li>
         </ol>
@@ -426,7 +426,8 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
 (function () {
   /* ---------- Réglages ---------- */
   var CONFIG = {
-    endpoint: "",                 /* service qui envoie chaque demande par e-mail (FormSubmit) */
+    endpoint: "https://api.web3forms.com/submit",                 /* service qui envoie chaque demande par e-mail (Web3Forms) */
+    cle: "1e505bf1-b6e3-4e34-bb9c-05aa89d567cf",                      /* clé d'accès Web3Forms liée à maisonblanchehydra@gmail.com */
     whatsapp: "213541559672",
     maxPers: 8,
     delaiMinH: 2,
@@ -584,16 +585,22 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
 
     if (!CONFIG.endpoint) { done(false); return; }
 
-    /* Envoi vers le script Google du restaurant : ajout au tableau des réservations + e-mail */
+    /* Envoi par e-mail via Web3Forms ; en cas d'échec, le client envoie sa demande sur WhatsApp */
     send.disabled = true; send.textContent = "Envoi en cours…";
     var payload = {
-      espace: data.espace, dateLabel: dLabel, date: data.date, heure: heureTxt, personnes: data.personnes,
-      nom: data.nom, telephone: data.telephone, email: data.email, occasion: data.occasion, remarque: data.remarque
+      access_key: CONFIG.cle,
+      subject: "Réservation : " + dLabel + " à " + heureTxt + ", " + data.personnes + " pers., " + data.nom,
+      from_name: "Site La Maison Blanche",
+      "Espace": data.espace, "Date": dLabel, "Heure": heureTxt, "Personnes": data.personnes,
+      "Nom": data.nom, "Téléphone": data.telephone, "E-mail": data.email || "-", "Occasion": data.occasion || "-", "Remarque": data.remarque || "-"
     };
-    var timer = setTimeout(function () { done(false); }, 15000);
-    fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
-      .then(function () { clearTimeout(timer); done(true); })
-      .catch(function () { clearTimeout(timer); done(false); });
+    if (data.email) payload.replyto = data.email;
+    var finished = false;
+    var timer = setTimeout(function () { if (!finished) { finished = true; done(false); } }, 15000);
+    fetch(CONFIG.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (finished) return; finished = true; clearTimeout(timer); done(!!(j && j.success)); })
+      .catch(function () { if (finished) return; finished = true; clearTimeout(timer); done(false); });
   });
 
   document.getElementById("again").addEventListener("click", function () { form.reset(); dateIn.value = iso(new Date()); persIn.value = "2"; groupe.hidden = true; send.disabled = false; slots(); ok.hidden = true; form.hidden = false; });
