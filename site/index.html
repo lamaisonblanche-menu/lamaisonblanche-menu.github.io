@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="logo.png">
-<style>html,body{margin:0;padding:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<style>[hidden]{display:none!important}html,body{margin:0;padding:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <meta property="og:title" content="La Maison Blanche, restaurant à Hydra">
 <meta property="og:description" content="Brunch, cuisine gastronomique et asiatique. Menu en ligne et réservation.">
 <meta property="og:image" content="https://lamaisonblanche-menu.github.io/site/photos/saumon-orange.jpg">
@@ -426,7 +426,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
 (function () {
   /* ---------- Réglages ---------- */
   var CONFIG = {
-    endpoint: "https://formsubmit.co/ajax/maisonblanchehydra@gmail.com",                 /* service qui envoie chaque demande par e-mail (FormSubmit) */
+    endpoint: "https://formsubmit.co/maisonblanchehydra@gmail.com",                 /* service qui envoie chaque demande par e-mail (FormSubmit) */
     whatsapp: "213541559672",
     maxPers: 8,
     delaiMinH: 2,
@@ -575,32 +575,41 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
     };
     var dLabel = new Date(data.date + "T00:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 
+    var heureTxt = data.heure.replace(":", " h ");
+    var rows = [["Espace", data.espace], ["Date", dLabel], ["Heure", heureTxt], ["Personnes", data.personnes], ["Nom", data.nom], ["Téléphone", data.telephone]];
+    var msg = "Bonjour, je souhaite réserver une table à La Maison Blanche.\n" +
+      "Espace : " + data.espace + "\nDate : " + dLabel + "\nHeure : " + heureTxt +
+      "\nPersonnes : " + data.personnes + "\nNom : " + data.nom + "\nTéléphone : " + data.telephone +
+      (data.occasion ? "\nOccasion : " + data.occasion : "") + (data.remarque ? "\nRemarque : " + data.remarque : "");
+    var waUrl = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+
     function done() {
       var recap = document.getElementById("recap"); recap.innerHTML = "";
-      [["Espace", data.espace], ["Date", dLabel], ["Heure", data.heure.replace(":", " h ")], ["Personnes", data.personnes], ["Nom", data.nom], ["Téléphone", data.telephone]]
-        .forEach(function (r) { recap.appendChild(el("dt", null, r[0])); recap.appendChild(el("dd", null, r[1])); });
-      var msg = "Bonjour, je souhaite réserver une table à La Maison Blanche.\n" +
-        "Espace : " + data.espace + "\nDate : " + dLabel + "\nHeure : " + data.heure.replace(":", " h ") +
-        "\nPersonnes : " + data.personnes + "\nNom : " + data.nom + "\nTéléphone : " + data.telephone +
-        (data.occasion ? "\nOccasion : " + data.occasion : "") + (data.remarque ? "\nRemarque : " + data.remarque : "");
-      document.getElementById("wa").href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+      rows.forEach(function (r) { recap.appendChild(el("dt", null, r[0])); recap.appendChild(el("dd", null, r[1])); });
+      document.getElementById("wa").href = waUrl;
       form.hidden = true; ok.hidden = false; ok.focus();
     }
 
+    /* Aperçu sans service d'envoi : on affiche directement la confirmation */
     if (!CONFIG.endpoint) { done(); return; }
+
+    /* Envoi classique du formulaire vers FormSubmit, qui transmet la demande par e-mail puis renvoie vers merci.html */
     send.disabled = true; send.textContent = "Envoi en cours…";
-    var mail = {
-      _subject: "Nouvelle réservation : " + dLabel + " à " + data.heure.replace(":", " h ") + ", " + data.personnes + " pers., " + data.espace,
+    try { sessionStorage.setItem("resa", JSON.stringify({ rows: rows, wa: waUrl })); } catch (x) {}
+    var fields = {
+      _subject: "Nouvelle réservation : " + dLabel + " à " + heureTxt + ", " + data.personnes + " pers., " + data.espace,
       _template: "table",
       _captcha: "false",
-      "Espace": data.espace, "Date": dLabel, "Heure": data.heure.replace(":", " h "), "Personnes": data.personnes,
+      _next: new URL("merci.html", location.href).href,
+      "Espace": data.espace, "Date": dLabel, "Heure": heureTxt, "Personnes": data.personnes,
       "Nom": data.nom, "Téléphone": data.telephone, "E-mail": data.email || "-", "Occasion": data.occasion || "-", "Remarque": data.remarque || "-"
     };
-    if (data.email) mail._replyto = data.email;
-    fetch(CONFIG.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(mail) })
-      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); done(); })
-      .catch(function () { err.textContent = "La demande n’a pas pu être envoyée. Vérifiez votre connexion, ou réservez par WhatsApp au +213 541 55 96 72."; err.hidden = false; })
-      .then(function () { send.disabled = false; send.textContent = "Envoyer ma demande"; });
+    if (data.email) fields._replyto = data.email;
+    var out = document.createElement("form");
+    out.method = "POST"; out.action = CONFIG.endpoint; out.acceptCharset = "UTF-8"; out.hidden = true;
+    Object.keys(fields).forEach(function (k) { var inp = document.createElement("input"); inp.type = "hidden"; inp.name = k; inp.value = fields[k]; out.appendChild(inp); });
+    document.body.appendChild(out);
+    out.submit();
   });
 
   document.getElementById("again").addEventListener("click", function () { form.reset(); dateIn.value = iso(new Date()); persIn.value = "2"; groupe.hidden = true; send.disabled = false; slots(); ok.hidden = true; form.hidden = false; });
