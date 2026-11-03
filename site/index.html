@@ -458,12 +458,9 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
       { t: "Box", items: [["Duo signature × 24", 5400, "4 california, 4 crunchy, 6 maki, 5 dragon saumon, 5 futomaki"], ["Party box × 54", 14200, "8 california, 8 crunchy, 6 maki crispy, 10 futomaki, 6 maki avocat, 8 choix du chef, 8 creamy avocat"]] },
       { t: "Plats", items: [["Poke bowl", 3200], ["Wok au poulet", 2400], ["Ramen gyoza", 2500], ["Ramen aux crevettes", 3200], ["Taco crispy", 3100], ["Mochis glacés × 2", 2000, "Pistache, framboise, mangue"]] }
     ]},
-    { id: "desserts", nom: "Desserts", photos: [
-      ["cake-fondant", "Cake fondant au caramel et crème vanille", 1500], ["hot-cookie", "Hot cookie", 1600], ["brioche-tiramisu", "Brioche perdue tiramisu", 1500],
-      ["brioche-caramel", "Brioche perdue caramel beurre salé", 2000], ["ny-roll-citron", "New York roll meringué au citron", 1000], ["ny-roll-pistache", "New York roll pistache", 1200],
-      ["crepe-suzette", "Crêpe Suzette et glace vanille", 1600], ["matilda-cake", "Matilda cake", 1000], ["pancake", "Pancake beurre et miel", 1000],
-      ["gaufre", "Gaufre Nutella ou pistache", 1500], ["crepe-nutella", "Crêpe Nutella ou pistache", 1500], ["tiramisu", "Tiramisu", 1000],
-      ["meringue-lemon", "Meringue lemon cake", 1000], ["granola-bowl", "Granola bowl, crumble pommes et beurre de cacahuète", 1800]
+    { id: "desserts", nom: "Desserts", sections: [
+      { t: "Gâteaux et brioches", items: [["Cake fondant au caramel et crème vanille", 1500], ["Hot cookie", 1600], ["Brioche perdue tiramisu", 1500], ["Brioche perdue caramel beurre salé", 2000], ["New York roll meringué au citron", 1000], ["New York roll pistache", 1200], ["Matilda cake", 1000], ["Tiramisu", 1000], ["Meringue lemon cake", 1000]] },
+      { t: "Crêpes, gaufres et bowls", items: [["Crêpe Suzette et glace vanille", 1600], ["Crêpe Nutella ou pistache", 1500], ["Gaufre Nutella ou pistache", 1500], ["Pancake beurre et miel", 1000], ["Granola bowl", 1800, "Crumble pommes et beurre de cacahuète"]] }
     ]},
     { id: "boissons", nom: "Boissons", sections: [
       { t: "Classiques", items: [["Eau minérale ou pétillante", 200], ["Soda", 250], ["Café", 400], ["Cappuccino", 500], ["Chocolat chaud", 700], ["Thé ou infusion", 400]] },
@@ -473,14 +470,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
     ]}
   ];
 
-  var PHOTOS = {
-    "Club sandwich saumon fumé": "club-saumon",
-    "Carpaccio de bœuf": "carpaccio-burrata",
-    "Burrata sur un carpaccio de tomates, sauce pesto": "salle-gastro",
-    "Escargots de Bourgogne": "escargots",
-    "Gambas tempura": "gambas-tempura",
-    "Saumon à l’orange": "saumon-orange"
-  };
+  var PHOTOS = {};
   function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
 
@@ -489,16 +479,8 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
     Array.prototype.forEach.call(tabs.children, function (b) { b.setAttribute("aria-selected", b.dataset.id === id ? "true" : "false"); });
     panel.innerHTML = "";
     var m = MENU.filter(function (x) { return x.id === id; })[0];
-    if (m.photos) {
-      var g = el("div", "photo-dishes");
-      m.photos.forEach(function (p) {
-        var f = el("figure"), img = el("img"); img.src = "img/" + p[0] + ".jpg"; img.alt = ""; img.loading = "lazy";
-        var c = el("figcaption", null, p[1]); c.appendChild(el("b", null, fmt(p[2]) + " DA"));
-        f.appendChild(img); f.appendChild(c); g.appendChild(f);
-      });
-      panel.appendChild(g); return;
-    }
-    m.sections.forEach(function (s) {
+    var sections = m.sections;
+    sections.forEach(function (s) {
       var c = el("div", "course"); c.appendChild(el("h3", null, s.t));
       var ul = el("ul");
       s.items.forEach(function (it) {
