@@ -323,10 +323,10 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
         <div class="head" style="margin-bottom:0">
           <p class="label">Réservation</p>
           <h2>Réserver une table</h2>
-          <p class="sub">Envoyez votre demande en une minute. Notre équipe vous rappelle pour la confirmer.</p>
+          <p class="sub">Préparez votre demande en une minute et envoyez-la sur WhatsApp. Notre équipe vous rappelle pour la confirmer.</p>
         </div>
         <ol class="steps">
-          <li><span>1</span><p>Vous choisissez l’espace, la date et l’heure.</p></li>
+          <li><span>1</span><p>Vous choisissez l’espace, la date et l’heure, puis vous envoyez la demande sur WhatsApp.</p></li>
           <li><span>2</span><p>Notre équipe vous appelle pour confirmer votre table.</p></li>
           <li><span>3</span><p>Votre table vous attend.</p></li>
         </ol>
@@ -362,15 +362,14 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
           </div>
           <div class="field"><label for="remarque">Remarque <span class="hint">(facultatif)</span></label><textarea id="remarque" name="remarque" placeholder="Chaise bébé, allergie, table près de la fenêtre…"></textarea></div>
           <p class="error" id="err" role="alert" hidden></p>
-          <button class="btn btn-solid" type="submit" id="send">Envoyer ma demande</button>
+          <button class="btn btn-solid" type="submit" id="send">Continuer</button>
         </form>
 
         <div class="confirm" id="ok" hidden tabindex="-1">
-          <p class="label">Demande envoyée</p>
-          <h3>Merci, votre demande est bien reçue</h3>
-          <p>Notre équipe vous appelle pour confirmer votre table. Votre réservation n’est valable qu’après cette confirmation.</p>
+          <p class="label">Dernière étape</p>
+          <h3>Envoyez votre demande sur WhatsApp</h3>
+          <p>Votre demande est prête. Appuyez sur le bouton ci-dessous pour l’envoyer à notre équipe sur WhatsApp. Nous vous rappelons ensuite pour confirmer votre table.</p>
           <dl class="recap" id="recap"></dl>
-          <p>Pour aller plus vite, envoyez aussi votre demande sur WhatsApp.</p>
           <div class="actions">
             <a class="btn btn-solid" id="wa" href="https://wa.me/213541559672" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
             <button class="btn btn-line" type="button" id="again">Nouvelle demande</button>
@@ -426,7 +425,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
 (function () {
   /* ---------- Réglages ---------- */
   var CONFIG = {
-    endpoint: "https://formsubmit.co/maisonblanchehydra@gmail.com",                 /* service qui envoie chaque demande par e-mail (FormSubmit) */
+    endpoint: "",                 /* service qui envoie chaque demande par e-mail (FormSubmit) */
     whatsapp: "213541559672",
     maxPers: 8,
     delaiMinH: 2,
