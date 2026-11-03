@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lamaisonblanche-menu.github.io/sitemap.xml
