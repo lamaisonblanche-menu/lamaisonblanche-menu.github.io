@@ -147,6 +147,7 @@ section.room { padding-block: 112px; }
 .photo-dishes img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; }
 .photo-dishes figcaption { font-size: 15px; font-weight: 400; }
 .photo-dishes figcaption b { display: block; font-weight: 300; font-variant-numeric: tabular-nums; margin-top: 2px; color: var(--muted); }
+.asie-note { margin: 0 0 32px; text-align: center; color: var(--muted); font-size: 15px; font-style: italic; grid-column: 1 / -1; }
 .menu-note { margin-top: 64px; text-align: center; color: var(--muted); font-size: 14px; }
 
 /* Booking */
@@ -222,7 +223,6 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
     <nav class="site-nav" id="nav" aria-label="Navigation principale">
       <a href="#maison">La maison</a>
       <a href="#espaces">Espaces</a>
-      <a href="#signatures">Signatures</a>
       <a href="#menu">Menu</a>
       <a href="#infos">Infos</a>
       <a class="btn btn-solid" href="#reserver">Réserver</a>
@@ -243,7 +243,8 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
       <div class="hours">
         <span><span class="muted">Samedi au jeudi</span><b>9 h – 23 h</b></span>
         <span><span class="muted">Vendredi</span><b>16 h – 23 h</b></span>
-        <span><span class="muted">Brunch</span><b>Jusqu’à 18 h</b></span>
+        <span><span class="muted">Brunch, tous les jours</span><b>9 h – 18 h</b></span>
+        <span><span class="muted">Cuisine asiatique</span><b>Dès 11 h</b></span>
       </div>
     </div>
   </section>
@@ -271,7 +272,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
       </div>
       <div class="spaces">
         <article class="space">
-                      <p class="label">Jusqu’à 18 h</p>
+                      <p class="label">Tous les jours, 9 h – 18 h</p>
             <h3>Salle brunch</h3>
             <p>Œufs, toasts, brioches perdues, pancakes et cocktails maison. Une salle lumineuse pour un brunch entre amis ou en famille.</p>
             <dl><dt>Réservation</dt><dd>9 h – 17 h</dd><dt>Vendredi</dt><dd>16 h – 17 h</dd></dl>
@@ -291,23 +292,6 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
             <dl><dt>Réservation</dt><dd>9 h – 22 h</dd><dt>Vendredi</dt><dd>16 h – 22 h</dd></dl>
             <a class="btn btn-line" href="#reserver">Réserver en terrasse</a>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="room dark" id="signatures">
-    <div class="wrap">
-      <div class="head center">
-        <p class="label">Nos signatures</p>
-        <h2>Les assiettes de la maison</h2>
-      </div>
-      <div class="sig-grid">
-        <article class="sig"><img src="photos/saumon-orange.jpg" alt="Saumon à l’orange" loading="lazy" style="object-position:50% 50%"><div class="meta"><div><p class="cat">Poisson</p><h3>Saumon à l’orange</h3></div><span class="p">4 500 DA</span></div></article>
-        <article class="sig"><img src="photos/carpaccio-burrata.jpg" alt="Carpaccio de bœuf" loading="lazy" style="object-position:50% 72%"><div class="meta"><div><p class="cat">Entrée froide</p><h3>Carpaccio de bœuf</h3></div><span class="p">2 500 DA</span></div></article>
-        <article class="sig"><img src="photos/gambas-tempura.jpg" alt="Gambas tempura" loading="lazy" style="object-position:50% 62%"><div class="meta"><div><p class="cat">Entrée chaude</p><h3>Gambas tempura</h3></div><span class="p">3 200 DA</span></div></article>
-        <article class="sig"><img src="photos/escargots.jpg" alt="Escargots de Bourgogne" loading="lazy" style="object-position:50% 48%"><div class="meta"><div><p class="cat">Entrée chaude</p><h3>Escargots de Bourgogne</h3></div><span class="p">2 300 DA</span></div></article>
-        <article class="sig"><img src="photos/club-saumon.jpg" alt="Club sandwich au saumon fumé et mojito" loading="lazy" style="object-position:50% 55%"><div class="meta"><div><p class="cat">Brunch</p><h3>Club sandwich saumon fumé</h3></div><span class="p">2 700 DA</span></div></article>
-        <article class="sig"><img src="photos/salle-gastro.jpg" alt="Burrata sur un carpaccio de tomates" loading="lazy" style="object-position:50% 85%"><div class="meta"><div><p class="cat">Entrée froide</p><h3>Burrata, carpaccio de tomates</h3></div><span class="p">2 000 DA</span></div></article>
       </div>
     </div>
   </section>
@@ -398,7 +382,8 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
           <table><tbody>
             <tr><td>Samedi – jeudi</td><td>9 h – 23 h</td></tr>
             <tr><td>Vendredi</td><td>16 h – 23 h</td></tr>
-            <tr><td>Brunch</td><td>jusqu’à 18 h</td></tr>
+            <tr><td>Brunch</td><td>tous les jours, 9 h – 18 h</td></tr>
+            <tr><td>Cuisine asiatique</td><td>tous les jours, dès 11 h</td></tr>
           </tbody></table>
         </div>
         <div>
@@ -464,7 +449,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
       { t: "Poisson", items: [["Saumon à l’orange", 4500], ["Daurade aux crustacés", 3700], ["Loup de mer", 3700]] },
       { t: "Pasta", items: [["Raviolis ricotta et épinards", 2600], ["Tagliatelles au saumon fumé", 2800], ["Tagliatelles poulet et champignons", 2400], ["Linguine alla scoglio", 4500], ["Spaghettis aux moules et pesto", 2800]] }
     ]},
-    { id: "asie", nom: "Box & Asie", sections: [
+    { id: "asie", nom: "Box & Asie", note: "Cuisine asiatique servie tous les jours à partir de 11 h.", sections: [
       { t: "Box", items: [["Duo signature × 24", 5400, "4 california, 4 crunchy, 6 maki, 5 dragon saumon, 5 futomaki"], ["Party box × 54", 14200, "8 california, 8 crunchy, 6 maki crispy, 10 futomaki, 6 maki avocat, 8 choix du chef, 8 creamy avocat"]] },
       { t: "Plats", items: [["Poke bowl", 3200], ["Wok au poulet", 2400], ["Ramen gyoza", 2500], ["Ramen aux crevettes", 3200], ["Taco crispy", 3100], ["Mochis glacés × 2", 2000, "Pistache, framboise, mangue"]] }
     ]},
@@ -489,6 +474,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
     Array.prototype.forEach.call(tabs.children, function (b) { b.setAttribute("aria-selected", b.dataset.id === id ? "true" : "false"); });
     panel.innerHTML = "";
     var m = MENU.filter(function (x) { return x.id === id; })[0];
+    if (m.note) panel.appendChild(el("p", "asie-note", m.note));
     var sections = m.sections;
     sections.forEach(function (s) {
       var c = el("div", "course"); c.appendChild(el("h3", null, s.t));
