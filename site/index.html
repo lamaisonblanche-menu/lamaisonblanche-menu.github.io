@@ -355,6 +355,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
           </div>
           <div class="field"><label for="remarque">Remarque <span class="hint">(facultatif)</span></label><textarea id="remarque" name="remarque" placeholder="Chaise bébé, allergie, table près de la fenêtre…"></textarea></div>
           <p class="error" id="err" role="alert" hidden></p>
+          <p class="hint">Après ce formulaire, l’envoi d’un message WhatsApp est obligatoire pour valider votre demande.</p>
           <button class="btn btn-solid" type="submit" id="send">Continuer</button>
         </form>
 
@@ -535,7 +536,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
   });
   slots();
 
-  send.textContent = CONFIG.endpoint ? "Envoyer ma demande" : "Continuer";
+  send.textContent = "Continuer";
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
@@ -568,14 +569,13 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
       var recap = document.getElementById("recap"); recap.innerHTML = "";
       rows.forEach(function (r) { recap.appendChild(el("dt", null, r[0])); recap.appendChild(el("dd", null, r[1])); });
       document.getElementById("wa").href = waUrl;
-      document.getElementById("ok-label").textContent = sent ? "Demande envoyée" : "Dernière étape";
-      document.getElementById("ok-title").textContent = sent ? "Merci, votre demande est bien reçue" : "Envoyez votre demande sur WhatsApp";
-      document.getElementById("ok-text").textContent = sent
-        ? "Notre équipe vous appelle pour confirmer votre table. Votre réservation n’est valable qu’après cette confirmation."
-        : "Votre demande est prête. Appuyez sur le bouton ci-dessous pour l’envoyer à notre équipe sur WhatsApp. Nous vous rappelons ensuite pour confirmer votre table.";
-      document.getElementById("ok-wa").hidden = !sent;
+      /* L'envoi WhatsApp est obligatoire dans tous les cas : sans message WhatsApp, la demande n'est pas traitée */
+      document.getElementById("ok-label").textContent = "Dernière étape obligatoire";
+      document.getElementById("ok-title").textContent = "Envoyez votre demande sur WhatsApp";
+      document.getElementById("ok-text").textContent = "Votre réservation n’est pas encore enregistrée. Appuyez sur le bouton ci-dessous : WhatsApp s’ouvre avec votre message déjà rempli, il vous suffit d’appuyer sur Envoyer. Sans ce message WhatsApp, votre demande ne sera pas prise en compte. Notre équipe vous rappelle ensuite pour confirmer votre table.";
+      document.getElementById("ok-wa").hidden = true;
       form.hidden = true; ok.hidden = false; ok.focus();
-      send.disabled = false; send.textContent = CONFIG.endpoint ? "Envoyer ma demande" : "Continuer";
+      send.disabled = false; send.textContent = "Continuer";
     }
 
     if (!CONFIG.endpoint) { done(false); return; }
@@ -584,7 +584,7 @@ footer.site p { margin-top: 26px; font-size: 11px; letter-spacing: .3em; text-tr
     send.disabled = true; send.textContent = "Envoi en cours…";
     var payload = {
       access_key: CONFIG.cle,
-      subject: "Réservation : " + dLabel + " à " + heureTxt + ", " + data.personnes + " pers., " + data.nom,
+      subject: "Réservation (à valider seulement si reçue sur WhatsApp) : " + dLabel + " à " + heureTxt + ", " + data.personnes + " pers., " + data.nom,
       from_name: "Site La Maison Blanche",
       "Espace": data.espace, "Date": dLabel, "Heure": heureTxt, "Personnes": data.personnes,
       "Nom": data.nom, "Téléphone": data.telephone, "E-mail": data.email || "-", "Occasion": data.occasion || "-", "Remarque": data.remarque || "-"
